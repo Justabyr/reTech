@@ -10,6 +10,7 @@ $produit = $requete->fetch();
 if (!$produit) {
     die("Produit non trouvé.");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

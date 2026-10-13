@@ -36,20 +36,40 @@ if (!empty($_SESSION['panier'])) {
                     <th>Quantité</th>
                     <th>Prix unitaire</th>
                     <th>Sous-total</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($lignes as $ligne) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($ligne['produit']['nom_prod']); ?></td>
-                        <td><?php echo $ligne['quantite']; ?></td>
+                        <td>
+                            <form action="diminuer_panier.php" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $ligne['produit']['id_prod']; ?>">
+                                <button type="submit">-</button>
+                            </form>
+                        <?php echo $ligne['quantite']; ?>
+                            <form action="ajouter_panier.php" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $ligne['produit']['id_prod']; ?>">
+                                <button type="submit">+</button>
+                            </form>
+                        </td>
                         <td><?php echo number_format($ligne['produit']['prix_prod'], 2, ',', ' '); ?> €</td>
                         <td><?php echo number_format($ligne['sous_total'], 2, ',', ' '); ?> €</td>
+                        <td>
+                            <form action="retirer_panier.php" method="post">
+                                <input type="hidden" name="id" value="<?php echo $ligne['produit']['id_prod']; ?>">
+                                <button type="submit">Retirer</button>
+                            </form>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
         <p><strong>Total : <?php echo number_format($total, 2, ',', ' '); ?> €</strong></p>
+        <form action="vider_panier.php" method="post">
+            <button type="submit">Vider le panier</button>
+            </form>
     <?php } ?>
     <a href="index.php">Retour au catalogue</a>
 </body>
