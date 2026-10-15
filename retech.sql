@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 12 oct. 2026 à 13:14
+-- Généré le : jeu. 15 oct. 2026 à 12:33
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.3.14
 
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id_util`, `nom_util`, `prenom_util`, `email_util`, `mdp`, `role`) VALUES
-(1, 'BELAOUISSI', 'Abyr', 'bel.abyr@gmail.com', 'azerty@1234', 'Admin');
+(1, 'BELAOUISSI', 'Abyr', 'bel.abyr@gmail.com', '$2y$10$fhkK5SAn/1OMgK46w9i/.exOn1Xr0EgNdTj8EnpO9EluX/Z5lv922', 'Admin');
 
 --
 -- Contraintes pour les tables déchargées
