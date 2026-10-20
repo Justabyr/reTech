@@ -29,7 +29,7 @@ $lignes = [];
         $requete->execute(['id' => $id ]);
         $produit = $requete->fetch();
         if ( $produit === false) {
-            // Si le produit n'existe pas, vous pouvez gérer l'erreur ici
+            // Si le produit n'existe pas on gère l'erreur ici
             unset($_SESSION['panier'][$id]);
             header('Location: panier.php'); // Rediriger vers le panier pour informer l'utilisateur
             exit;
@@ -57,7 +57,7 @@ $lignes = [];
 try {
     $pdo->beginTransaction();
 
-    // 1. Créer la commande
+    //Créer la commande
     $requete = $pdo->prepare("INSERT INTO commande (total_com, id_util, adresse_livraison_com) VALUES (:total, :id_util, :adresse)");
     $requete->execute([
         'total'   => $total,

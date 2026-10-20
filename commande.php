@@ -20,9 +20,9 @@ require 'includes/connexion.php';
         $requete->execute(['id' => $id ]);
         $produit = $requete->fetch();
         if ( $produit === false) {
-            // Si le produit n'existe pas, vous pouvez gérer l'erreur ici
+            // Si le produit n'existe pas gérer l'erreur ici
             unset($_SESSION['panier'][$id]);
-            header('Location: panier.php'); // Rediriger vers le panier pour informer l'utilisateur
+            header('Location: panier.php');
             exit;
         }
         if ($quantite > $produit['stock_prod']) {
