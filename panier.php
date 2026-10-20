@@ -69,7 +69,8 @@ if (!empty($_SESSION['panier'])) {
         <p><strong>Total : <?php echo number_format($total, 2, ',', ' '); ?> €</strong></p>
         <form action="vider_panier.php" method="post">
             <button type="submit">Vider le panier</button>
-            </form>
+        </form>
+        <a href="commande.php">Passer la commande</a><br>
     <?php } ?>
     <a href="index.php">Retour au catalogue</a>
 </body>
