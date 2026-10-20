@@ -68,7 +68,7 @@ $lignes = $requete->fetchAll();
             <?php } ?>
         </tbody>
     </table>
-
+    <p><a href="facture.php?id=<?php echo htmlspecialchars($commande['id_com']); ?>">Télécharger la facture</a></p>
     <a href="index.php">Retour à l'accueil</a>
 </body>
 </html>
