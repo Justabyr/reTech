@@ -1,24 +1,38 @@
 <?php
 session_start();
-//login
+// Connectée ?
 if (!isset($_SESSION['utilisateur'])) {
     header('Location: login.php');
     exit;
 }
-//récuperr l'id depuis l'URL
+// Id présent ?
 if (!isset($_GET['id'])) {
-    //rediriger vers l'index
     header('Location: index.php');
     exit;
 }
-//chercher la commande avec une requête préparée
 require 'includes/connexion.php';
-$requete = $pdo->prepare("SELECT * FROM commande WHERE id_com = :id_com AND id_util = :id_util");
-$requete->execute([
-    'id_com' => $_GET['id'],
-    'id_util' => $_SESSION['utilisateur']['id']
-]);
+
+// Chercher la commande
+if ($_SESSION['utilisateur']['role'] === 'Admin') {
+    // L'admin peut voir toutes les factures
+    $requete = $pdo->prepare("SELECT commande.*, utilisateur.nom_util, utilisateur.prenom_util
+        FROM commande
+        JOIN utilisateur ON commande.id_util = utilisateur.id_util
+        WHERE commande.id_com = :id_com");
+    $requete->execute(['id_com' => $_GET['id']]);
+} else {
+    // Un client ne voit que ses propres factures
+    $requete = $pdo->prepare("SELECT commande.*, utilisateur.nom_util, utilisateur.prenom_util
+        FROM commande
+        JOIN utilisateur ON commande.id_util = utilisateur.id_util
+        WHERE commande.id_com = :id_com AND commande.id_util = :id_util");
+    $requete->execute([
+        'id_com'  => $_GET['id'],
+        'id_util' => $_SESSION['utilisateur']['id']
+    ]);
+}
 $commande = $requete->fetch();
+
 //commande non trouvée
 if (!$commande) {
     header('Location: index.php');
@@ -53,7 +67,7 @@ $taxe = $total_ttc - $total_ht;
 
         <h2>Client</h2>
         <p>
-            <?php echo htmlspecialchars($_SESSION['utilisateur']['prenom'] . ' ' . $_SESSION['utilisateur']['nom']); ?><br>
+            <?php echo htmlspecialchars($commande['prenom_util'] . ' ' . $commande['nom_util']); ?><br>
             <?php echo nl2br(htmlspecialchars($commande['adresse_livraison_com'])); ?>
         </p>
     <p><strong>Numéro de commande :</strong> <?php echo htmlspecialchars($commande['id_com']); ?></p>
