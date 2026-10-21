@@ -21,6 +21,12 @@ nav a {
     text-decoration: none;
 }
 
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 @media print {
     nav, button, a { display: none; }
 }

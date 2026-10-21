@@ -22,3 +22,4 @@
     ?>
     <a href="panier.php">Mon panier</a>
 </nav>
+<main>
