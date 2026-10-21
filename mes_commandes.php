@@ -44,5 +44,4 @@ require 'includes/header.php';
         </table>
     <?php endif; ?>
     <a href="index.php">Retour à l'accueil</a>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

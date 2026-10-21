@@ -51,6 +51,5 @@ require 'includes/header.php';
         <button type="submit">Se connecter</button>
     </form>
     <p>Pas encore de compte ? <a href="inscription.php">Inscrivez-vous ici</a>.</p>     
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>
 

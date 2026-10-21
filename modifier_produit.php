@@ -66,5 +66,4 @@ require 'includes/header.php';
     </form>
 
     <a href="admin.php">Retour à l'administration</a>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

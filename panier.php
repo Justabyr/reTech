@@ -68,5 +68,4 @@ require 'includes/header.php';
         <a href="commande.php">Passer la commande</a><br>
     <?php } ?>
     <a href="index.php">Retour au catalogue</a>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

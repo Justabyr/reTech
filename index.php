@@ -25,5 +25,4 @@ require 'includes/header.php';
         </p>
     <?php } ?>
 
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

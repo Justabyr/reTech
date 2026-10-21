@@ -55,5 +55,4 @@ require 'includes/header.php';
         </table>
     <?php endif; ?>
     <a href="admin.php">Retour à l'administration</a>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

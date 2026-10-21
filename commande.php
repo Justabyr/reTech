@@ -76,5 +76,4 @@ require 'includes/header.php';
             <button type="submit">Valider la commande</button>
         </form>
     <a href="panier.php">Retour au panier</a>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

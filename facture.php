@@ -91,5 +91,4 @@ require 'includes/header.php';
 
     <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
     <a href="index.php">Retour à l'accueil</a>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

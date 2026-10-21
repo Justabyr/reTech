@@ -91,5 +91,4 @@ require 'includes/header.php';
 
     <a href="index.php">Retour à l'accueil</a>
 
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>
