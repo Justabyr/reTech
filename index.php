@@ -8,21 +8,22 @@ require 'includes/header.php';
 ?>
 
 <h1>Bienvenue sur ReTech</h1>
-
+<div class="catalogue">
     <?php foreach ($produits as $produit) { ?>
     
-        <p>
-            <?php echo htmlspecialchars($produit['nom_cat']); ?> -
-            <a href="produit.php?id=<?php echo ($produit['id_prod']); ?>"><?php echo htmlspecialchars($produit['nom_prod']); ?></a> - 
-            <?php echo htmlspecialchars(number_format($produit['prix_prod'], 2, ',', ' ')); ?> € -
-            <?php echo htmlspecialchars($produit['etat_prod']); ?> -
-            <?php if ($produit['stock_prod'] > 0) { ?> 
+        <div class="produit">
+            <p class = "categorie"><?php echo htmlspecialchars($produit['nom_cat']); ?> </p>
+            <p class = "nom"><a href="produit.php?id=<?php echo ($produit['id_prod']); ?>"><?php echo htmlspecialchars($produit['nom_prod']); ?></a> </p> 
+            <p class = "prix"><?php echo htmlspecialchars(number_format($produit['prix_prod'], 2, ',', ' ')); ?> € </p>
+            <p class = "etat"><?php echo htmlspecialchars($produit['etat_prod']); ?> </p>
+            <p class = "stock"><?php if ($produit['stock_prod'] > 0) { ?> 
                 En stock : 
                 <?php echo htmlspecialchars($produit['stock_prod']); ?> 
             <?php } else { ?>
-                Rupture de stock
+                <span class = "rupture">Rupture de stock</span>
             <?php } ?>
-        </p>
+            </p>
+        </div>  
     <?php } ?>
-
+</div>
 <?php require 'includes/footer.php'; ?>
