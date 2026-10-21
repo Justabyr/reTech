@@ -18,14 +18,9 @@ FROM commande
 JOIN utilisateur ON commande.id_util = utilisateur.id_util
 ORDER BY date_com DESC");
 $commandes = $requete->fetchAll();
+$titre = "Toutes les commandes";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech - Toutes les commandes</title>   
-</head>
-<body>
     <h1>Toutes les commandes</h1>
     <?php if (empty($commandes)) : ?>
         <p>Il n'y a pas encore de commandes.</p>

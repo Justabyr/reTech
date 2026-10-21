@@ -48,19 +48,9 @@ $lignes = $requete->fetchAll();
 $total_ttc = $commande['total_com'];
 $total_ht = round($total_ttc / 1.2, 2);
 $taxe = $total_ttc - $total_ht;
+$titre = "Facture de la commande";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech</title>
-    <style>
-    @media print {
-        button, a { display: none; }
-    }
-</style>
-</head>
-<body>
     <h1>Facture de la commande</h1>
         <h2>Vendeur</h2>
         <p>ReTech<br>12 rue de l'Exemple, 76600 Le Havre<br>SIRET : 123 456 789 00012</p>

@@ -17,14 +17,12 @@ require 'includes/connexion.php';
 //Réupérer les produits
 $requete = $pdo->query("SELECT * FROM produit");
 $produits = $requete->fetchAll();
+//Récupérer les catégories
+$requete_cat = $pdo->query("SELECT * FROM categorie");
+$categories = $requete_cat->fetchAll();
+$titre = "Administration";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech - Administration</title>
-</head>
-<body>
     <h1>Administration</h1>
         <a href="admin_commandes.php">Voir les commandes</a>
     <h2>Liste des produits</h2>
@@ -48,7 +46,7 @@ $produits = $requete->fetchAll();
                     <td><?php echo number_format($produit['prix_prod'], 2, ',', ' '); ?> €</td>
                     <td><?php echo htmlspecialchars($produit['stock_prod']); ?></td>
                     <td>
-                        <a href="modifier_produit.php?id=<?php echo $produit['id_prod']; ?>">Modifier</a> |
+                        <a href="modifier_produit.php?id=<?php echo $produit['id_prod']; ?>">Modifier</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -68,6 +66,25 @@ $produits = $requete->fetchAll();
 
         <label for="stock">Stock :</label><br>
         <input type="number" id="stock" name="stock" min = "0" required><br><br>
+
+        <label for="etat">État :</label><br>
+        <select id="etat" name="etat" required>
+            <option value="Correct">Correct</option>
+            <option value="Bon état">Bon état</option>
+            <option value="Très bon état">Très bon état</option>
+        </select><br><br>
+
+        <label for="categorie">Catégorie :</label><br>
+        <select id="categorie" name="categorie" required>
+        <?php 
+        foreach ($categories as $categorie) {
+            echo '<option value="' . htmlspecialchars($categorie['id_cat']) . '">' . htmlspecialchars($categorie['nom_cat']) . '</option>';
+        }
+        ?>
+        </select><br><br>
+
+        <label for="image">URL de l'image :</label><br>
+        <input type="text" id="image" name="image" placeholder="images/nom-du-fichier.jpg" required><br><br>
 
         <button type="submit">Ajouter le produit</button>
     </form>

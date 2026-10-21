@@ -34,14 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreur = "Email ou mot de passe incorrect.";
     }
 }
+$titre = "Connexion";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Connexion</title>    
-</head>
-<body>
     <h1>Connexion</h1>
     <?php if (!empty($erreur)) { ?>
         <p><?php echo htmlspecialchars($erreur); ?></p>

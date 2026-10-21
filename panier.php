@@ -17,14 +17,9 @@ if (!empty($_SESSION['panier'])) {
         ];
     }
 }
+$titre = "Mon panier";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech</title>
-</head>
-<body>
     <h1>Mon panier</h1>
     <?php if (empty($lignes)) { ?>
         <p>Votre panier est vide.</p>

@@ -10,14 +10,9 @@ require 'includes/connexion.php';
 $requete = $pdo->prepare("SELECT * FROM commande WHERE id_util = :id_util ORDER BY date_com DESC");
 $requete->execute(['id_util' => $_SESSION['utilisateur']['id']]);
 $commandes = $requete->fetchAll();
+$titre = "Mes commandes";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech - Mes commandes</title>   
-</head>
-<body>
     <h1>Mes commandes</h1>
     <?php if (empty($commandes)) : ?>
         <p>Vous n'avez pas encore passé de commande.</p>

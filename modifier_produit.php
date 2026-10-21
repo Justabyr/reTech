@@ -48,14 +48,9 @@ if (!$produit) {
     header('Location: admin.php');
     exit;
 }
+$titre = "Modifier le produit";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech - Modifier un produit</title>
-</head>
-<body>
     <h1>Modifier : <?php echo htmlspecialchars($produit['nom_prod']); ?></h1>
 
     <form action="modifier_produit.php" method="post">

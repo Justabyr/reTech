@@ -31,14 +31,9 @@ JOIN produit ON ligne_commande.id_prod = produit.id_prod
 WHERE ligne_commande.id_com = :id_com");
 $requete->execute(['id_com' => $commande['id_com']]);
 $lignes = $requete->fetchAll();
+$titre = "Confirmation de la commande";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech</title>
-</head>
-<body>
     <h1>Confirmation de la commande</h1>
     <p>Merci pour votre commande ! Voici le récapitulatif :</p>
     <p><strong>Numéro de commande :</strong> <?php echo htmlspecialchars($commande['id_com']); ?></p>

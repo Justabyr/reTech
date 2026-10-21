@@ -3,29 +3,11 @@ session_start();
 require 'includes/connexion.php';
 $requete = $pdo->query("SELECT produit.*, categorie.nom_cat FROM produit JOIN categorie ON produit.id_cat = categorie.id_cat");
 $produits = $requete->fetchAll();
+$titre = "Accueil";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech</title>
-</head>
-<body>
-    <h1>Bienvenue sur ReTech</h1>
-    <?php if (isset($_SESSION['utilisateur'])) {
-        echo "<p>Bonjour, " . htmlspecialchars($_SESSION['utilisateur']['prenom']) . " " . htmlspecialchars($_SESSION['utilisateur']['nom']) . " (" . htmlspecialchars($_SESSION['utilisateur']['role']) . ")</p>";
-        echo '<a href="logout.php">Se déconnecter</a>';
-        echo ' <a href="mes_commandes.php">Mes commandes</a>';
-        if ($_SESSION['utilisateur']['role'] === 'Admin') {
-            echo ' | <a href="admin.php">Administration</a>';
-        }
-    } else {
-        echo '<a href="login.php">Se connecter</a> | <a href="inscription.php">S\'inscrire</a>';
-    }
-    ?>
-    <br>
-    <a href="panier.php">Mon panier</a>
-    
+
+<h1>Bienvenue sur ReTech</h1>
 
     <?php foreach ($produits as $produit) { ?>
     

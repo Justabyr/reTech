@@ -49,15 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         }   
     }
-
+$titre = "Inscription";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscription</title>
-</head>
-<body>
     <h1>Inscription</h1>
     <?php if (!empty($erreur)) { ?>
         <p> <?php echo $erreur; ?> </p>

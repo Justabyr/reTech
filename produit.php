@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (!isset($_GET['id'])) {
     die("ID du produit manquant.");
 }
@@ -10,17 +11,10 @@ $produit = $requete->fetch();
 if (!$produit) {
     die("Produit non trouvé.");
 }
-
+$titre = $produit['nom_prod'];
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech</title>
-</head>
-<body>
     <h1><?php echo htmlspecialchars($produit['nom_prod']); ?></h1>
-    <a href="panier.php">Mon panier</a>
 
     
         <p>

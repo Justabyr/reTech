@@ -45,14 +45,9 @@ require 'includes/connexion.php';
             'sous_total' => $sous_total
         ];
     }
+$titre = "Récapitulatif de ma commande";
+require 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>ReTech</title>
-</head>
-<body>
     <h1>Récapitulatif de ma commande</h1>
         <table>
             <thead>
