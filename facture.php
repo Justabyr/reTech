@@ -89,6 +89,6 @@ require 'includes/header.php';
     <p><strong>TVA (20 %) :</strong> <?php echo number_format($taxe, 2, ',', ' '); ?> €</p>
     <p><strong>Total TTC : <?php echo number_format($total_ttc, 2, ',', ' '); ?> €</strong></p>
 
-    <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
-    <a href="index.php">Retour à l'accueil</a>
+    <button class="no-print" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+    <a class="no-print" href="index.php">Retour à l'accueil</a>
 <?php require 'includes/footer.php'; ?>

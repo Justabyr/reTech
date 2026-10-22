@@ -62,10 +62,12 @@ require 'includes/header.php';
             </tbody>
         </table>
         <p><strong>Total : <?php echo number_format($total, 2, ',', ' '); ?> €</strong></p>
-        <form action="vider_panier.php" method="post">
-            <button type="submit">Vider le panier</button>
-        </form>
-        <a href="commande.php">Passer la commande</a><br>
+        <div class="actions-panier">
+            <form action="vider_panier.php" method="post">
+                <button type="submit">Vider le panier</button>
+            </form>
+            <a class="btn" href="commande.php">Passer la commande</a>
+        </div>
     <?php } ?>
     <a href="index.php">Retour au catalogue</a>
 <?php require 'includes/footer.php'; ?>
