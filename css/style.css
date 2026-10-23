@@ -224,6 +224,62 @@ label{
     color: var(--rose) !important;
 }
 
+/* Fiche produit : image à gauche, infos à droite */
+.fiche-produit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+    padding: 30px;
+    background: var(--verre);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--bordure_du_verre);
+    border-radius: 20px;
+}
+
+.fiche-image img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.fiche-infos h1 {
+    margin: 5px 0;
+}
+
+.etat {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--violet);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--violet);
+}
+
+.fiche-infos .prix {
+    font-size: 32px;
+    display: block;
+    width: fit-content;
+}
+
+.description {
+    color: var(--texte_gris);
+    line-height: 1.6;
+}
+
+.stock {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.retour {
+    display: inline-block;
+    margin-top: 25px;
+}
+
 @media print {
 
     .no-print,

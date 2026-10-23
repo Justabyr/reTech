@@ -14,31 +14,34 @@ if (!$produit) {
 $titre = $produit['nom_prod'];
 require 'includes/header.php';
 ?>
-    <h1><?php echo htmlspecialchars($produit['nom_prod']); ?></h1>
+<div class="fiche-produit">
 
-    
-        <p>
-            <?php echo htmlspecialchars($produit['nom_cat']); ?> -
-            <?php echo htmlspecialchars($produit['description_prod']); ?> -
-            <?php echo htmlspecialchars(number_format($produit['prix_prod'], 2, ',', ' ')); ?> € -
-            <?php echo htmlspecialchars($produit['etat_prod']); ?> -
-            <?php if ($produit['stock_prod'] > 0) { ?> 
-                En stock : 
-                <?php echo htmlspecialchars($produit['stock_prod']); ?> 
-                <form action="ajouter_panier.php" method="post">
-                <input type="hidden" name="id" value="<?php echo ($produit['id_prod']); ?>">
+    <div class="fiche-image">
+        <img src="<?php echo htmlspecialchars($produit['image']); ?>"
+             alt="<?php echo htmlspecialchars($produit['nom_prod']); ?>">
+    </div>
+
+    <div class="fiche-infos">
+        <p class="categorie"><?php echo htmlspecialchars($produit['nom_cat']); ?></p>
+        <h1><?php echo htmlspecialchars($produit['nom_prod']); ?></h1>
+        <p class="etat"><?php echo htmlspecialchars($produit['etat_prod']); ?></p>
+
+        <p class="prix"><?php echo number_format($produit['prix_prod'], 2, ',', ' '); ?> €</p>
+
+        <p class="description"><?php echo htmlspecialchars($produit['description_prod']); ?></p>
+
+        <?php if ($produit['stock_prod'] > 0) { ?>
+            <p class="stock">En stock : <?php echo htmlspecialchars($produit['stock_prod']); ?></p>
+            <form action="ajouter_panier.php" method="post">
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($produit['id_prod']); ?>">
                 <button type="submit">Ajouter au panier</button>
             </form>
-            <?php } else { ?>
-                Rupture de stock
-            <?php } ?>
-            
-        </p>
-        <p>
-            <a href="index.php">Retour au catalogue</a>
-        </p>
+        <?php } else { ?>
+            <p class="rupture">Rupture de stock</p>
+        <?php } ?>
 
-        
-    
+        <a class="retour" href="index.php">← Retour au catalogue</a>
+    </div>
 
+</div>
 <?php require 'includes/footer.php'; ?>
