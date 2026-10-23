@@ -187,3 +187,49 @@ label{
     color: var(--texte_gris);
 }
 
+@media print {
+
+    .no-print,
+    nav {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+        min-height: auto;
+    }
+
+    main {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /*Enlever l'effet verre*/
+    table {
+        background: none;
+        backdrop-filter: none;
+        border: none;
+        border-radius: 0;
+        border-collapse: collapse;
+        overflow: visible;
+    }
+
+    th, td {
+        border: 1px solid black;
+        color: black;
+    }
+
+    /*En-tête du tableau en gris clair*/
+    th {
+        background: #e5e5e5;
+    }
+
+    tr:hover td {
+        background: none;
+    }
+}
+
+@page {
+    margin: 1.5cm;
+}
