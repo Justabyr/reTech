@@ -17,8 +17,30 @@ require 'includes/header.php';
 <div class="fiche-produit">
 
     <div class="fiche-image">
-        <img src="<?php echo htmlspecialchars($produit['image']); ?>"
-             alt="<?php echo htmlspecialchars($produit['nom_prod']); ?>">
+        <?php if (!empty($produit['modele_3d']) && str_starts_with($produit['modele_3d'], 'https://sketchfab')) { ?>
+            <!-- Cas 1 : modèle 3D hébergé sur Sketchfab -->
+            <iframe
+                src="<?php echo htmlspecialchars($produit['modele_3d']); ?>?autostart=1&transparent=1&ui_theme=dark&ui_color=8b5cf6&ui_infos=0&ui_stop=0"
+                title="<?php echo htmlspecialchars($produit['nom_prod']); ?>"
+                allow="autoplay; fullscreen; xr-spatial-tracking"
+                allowfullscreen>
+            </iframe>
+
+        <?php } elseif (!empty($produit['modele_3d'])) { ?>
+            <!-- Cas 2 : fichier .glb sur le site -->
+            <model-viewer
+                src="<?php echo htmlspecialchars($produit['modele_3d']); ?>"
+                alt="<?php echo htmlspecialchars($produit['nom_prod']); ?>"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1">
+            </model-viewer>
+
+        <?php } else { ?>
+            <!-- Cas 3 : pas de 3D, on affiche la photo -->
+            <img src="<?php echo htmlspecialchars($produit['image']); ?>"
+                 alt="<?php echo htmlspecialchars($produit['nom_prod']); ?>">
+        <?php } ?>
     </div>
 
     <div class="fiche-infos">
@@ -44,4 +66,14 @@ require 'includes/header.php';
     </div>
 
 </div>
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+<script type="module">
+    // Attendre que model-viewer soit chargé
+    customElements.whenDefined('model-viewer').then(function () {
+        // Qualité minimum = 100 % (au lieu de 50 % par défaut)
+        customElements.get('model-viewer').minimumRenderScale = 1;
+    });
+</script>
+
 <?php require 'includes/footer.php'; ?>

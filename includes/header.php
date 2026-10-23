@@ -2,12 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo htmlspecialchars($titre); ?></title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <nav>
-    <a href="index.php">ReTech</a>
+    <a href="index.php" class="logo">ReTech</a>
     <?php if (isset($_SESSION['utilisateur'])) {
         echo "<span>Bonjour, " . htmlspecialchars($_SESSION['utilisateur']['prenom']) . " " . htmlspecialchars($_SESSION['utilisateur']['nom']) . " (" . htmlspecialchars($_SESSION['utilisateur']['role']) . ")</span>";
         echo '<a href="logout.php">Se déconnecter</a>';
