@@ -37,9 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $titre = "Connexion";
 require 'includes/header.php';
 ?>
+<div class="carte-form">
     <h1>Connexion</h1>
     <?php if (!empty($erreur)) { ?>
-        <p><?php echo htmlspecialchars($erreur); ?></p>
+        <p class="erreur"><?php echo htmlspecialchars($erreur); ?></p>
     <?php } ?>
     <form action="login.php" method="post">
         <label for="email">Email :</label>
@@ -51,5 +52,6 @@ require 'includes/header.php';
         <button type="submit">Se connecter</button>
     </form>
     <p>Pas encore de compte ? <a href="inscription.php">Inscrivez-vous ici</a>.</p>     
-<?php require 'includes/footer.php'; ?>
+</div>
+    <?php require 'includes/footer.php'; ?>
 

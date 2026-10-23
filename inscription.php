@@ -52,26 +52,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $titre = "Inscription";
 require 'includes/header.php';
 ?>
+<div class="carte-form">
     <h1>Inscription</h1>
     <?php if (!empty($erreur)) { ?>
-        <p> <?php echo $erreur; ?> </p>
+        <p class="erreur"> <?php echo htmlspecialchars($erreur); ?> </p>
     <?php } ?>
     <form action="inscription.php" method="post">
         <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br><br>
+        <input type="text" id="nom" name="nom" required>
 
         <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required><br><br>
+        <input type="text" id="prenom" name="prenom" required>
 
         <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input type="email" id="email" name="email" required>
 
         <label for="mot_de_passe">Mot de passe :</label>
-        <input type="password" id="mot_de_passe" name="mot_de_passe" required><br><br>
+        <input type="password" id="mot_de_passe" name="mot_de_passe" required>
 
         <label for="confirmation_mot_de_passe">Confirmation du mot de passe :</label>
-        <input type="password" id="confirmation_mot_de_passe" name="confirmation_mot_de_passe" required><br><br>
+        <input type="password" id="confirmation_mot_de_passe" name="confirmation_mot_de_passe" required>
 
-        <input type="submit" value="S'inscrire">
+        <button type="submit">S'inscrire</button>
     </form>
+</div>
 <?php require 'includes/footer.php'; ?>
