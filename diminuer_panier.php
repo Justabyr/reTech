@@ -4,33 +4,21 @@ session_start();
 if (!isset($_POST['id'])) {
     die("ID du produit manquant.");
 }
-$id = $_POST['id'];
-require 'includes/connexion.php';
-$requete = $pdo->prepare("SELECT * FROM produit WHERE id_prod = :id");
-$requete->execute(['id' => $id]);
-$produit = $requete->fetch();
-if (!$produit) {
-    die("Produit non trouvé.");
-}
-if (isset($_SESSION['panier'][$id])) {
-    $deja = $_SESSION['panier'][$id];
-} else {
-    $deja = 0;
-}
 
-if ($deja - 1 < 0) {
-    die("Quantité invalide.");
-}
-if ($deja - 1 == 0) {
-    unset($_SESSION['panier'][$id]);
+$id = (int) $_POST['id'];
+
+// produit pas dans le panier : rien à faire
+if (!isset($_SESSION['panier'][$id])) {
     header('Location: panier.php');
     exit;
 }
-if (!isset($_SESSION['panier'])) {
-    $_SESSION['panier'] = [];
+
+$_SESSION['panier'][$id]--;
+
+// à 0, on retire le produit du panier
+if ($_SESSION['panier'][$id] <= 0) {
+    unset($_SESSION['panier'][$id]);
 }
-if (isset($_SESSION['panier'][$id])) {
-    $_SESSION['panier'][$id]--;
-}
+
 header('Location: panier.php');
 exit;

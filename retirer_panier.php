@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_POST['id'])) {
-    die("ID du produit manquant.");
-}
-unset($_SESSION['panier'][$_POST['id']]);
+$id = (int) ($_POST['id'] ?? 0);
+
+unset($_SESSION['panier'][$id]);
+
 header('Location: panier.php');
 exit;

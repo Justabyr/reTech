@@ -1,94 +1,110 @@
 <?php
 session_start();
-// Vérifier si l'utilisateur est connecté
+
+// page réservée aux admins
 if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     header('Location: login.php');
     exit;
 }
-// Vérifier si l'utilisateur est un administrateur
+
 if ($_SESSION['utilisateur']['role'] !== 'Admin') {
-    // Rediriger vers la page d'accueil si l'utilisateur n'est pas un administrateur
     header('Location: index.php');
     exit;
 }
-//Connexion à la base
+
 require 'includes/connexion.php';
-//Réupérer les produits
-$requete = $pdo->query("SELECT * FROM produit");
-$produits = $requete->fetchAll();
-//Récupérer les catégories
-$requete_cat = $pdo->query("SELECT * FROM categorie");
-$categories = $requete_cat->fetchAll();
+
+$produits = $pdo->query("
+    SELECT produit.*, categorie.nom_cat
+    FROM produit
+    JOIN categorie ON produit.id_cat = categorie.id_cat
+    ORDER BY produit.id_prod
+")->fetchAll();
+
+$categories = $pdo->query("SELECT * FROM categorie ORDER BY nom_cat")->fetchAll();
+
 $titre = "Administration";
 require 'includes/header.php';
 ?>
-    <h1>Administration</h1>
-        <a href="admin_commandes.php">Voir les commandes</a>
-    <h2>Liste des produits</h2>
-    <table border="1">
-        <thead>
+
+<h1>Administration</h1>
+
+<a class="btn" href="admin_commandes.php">Voir les commandes</a>
+
+<h2>Liste des produits</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>Prix</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($produits as $produit) : ?>
             <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Actions</th>
+                <td><?php echo htmlspecialchars($produit['id_prod']); ?></td>
+                <td><?php echo htmlspecialchars($produit['nom_prod']); ?></td>
+                <td><?php echo htmlspecialchars($produit['nom_cat']); ?></td>
+                <td><?php echo number_format($produit['prix_prod'], 2, ',', ' '); ?> €</td>
+                <td>
+                    <?php if ($produit['stock_prod'] > 0) : ?>
+                        <?php echo htmlspecialchars($produit['stock_prod']); ?>
+                    <?php else : ?>
+                        <span class="rupture">Rupture</span>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <a href="modifier_produit.php?id=<?php echo htmlspecialchars($produit['id_prod']); ?>">Modifier</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($produits as $produit) : ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($produit['id_prod']); ?></td>
-                    <td><?php echo htmlspecialchars($produit['nom_prod']); ?></td>
-                    <td><?php echo htmlspecialchars($produit['description_prod']); ?></td>
-                    <td><?php echo number_format($produit['prix_prod'], 2, ',', ' '); ?> €</td>
-                    <td><?php echo htmlspecialchars($produit['stock_prod']); ?></td>
-                    <td>
-                        <a href="modifier_produit.php?id=<?php echo $produit['id_prod']; ?>">Modifier</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-    <h2>Ajouter un nouveau produit</h2>
+<div class="carte-form">
+    <h2>Ajouter un produit</h2>
+
     <form action="ajouter_produit.php" method="post">
-        <label for="nom">Nom :</label><br>
-        <input type="text" id="nom" name="nom" required><br>
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required>
 
-        <label for="description">Description :</label><br>
-        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
 
-        <label for="prix">Prix :</label><br>
-        <input type="number" id="prix" name="prix" step="0.01" min = "0" required><br>
+        <label for="prix">Prix (€) :</label>
+        <input type="number" id="prix" name="prix" step="0.01" min="0" required>
 
-        <label for="stock">Stock :</label><br>
-        <input type="number" id="stock" name="stock" min = "0" required><br><br>
+        <label for="stock">Stock :</label>
+        <input type="number" id="stock" name="stock" min="0" required>
 
-        <label for="etat">État :</label><br>
+        <label for="etat">État :</label>
         <select id="etat" name="etat" required>
             <option value="Correct">Correct</option>
             <option value="Bon état">Bon état</option>
             <option value="Très bon état">Très bon état</option>
-        </select><br><br>
+        </select>
 
-        <label for="categorie">Catégorie :</label><br>
+        <label for="categorie">Catégorie :</label>
         <select id="categorie" name="categorie" required>
-        <?php 
-        foreach ($categories as $categorie) {
-            echo '<option value="' . htmlspecialchars($categorie['id_cat']) . '">' . htmlspecialchars($categorie['nom_cat']) . '</option>';
-        }
-        ?>
-        </select><br><br>
+            <?php foreach ($categories as $categorie) : ?>
+                <option value="<?php echo htmlspecialchars($categorie['id_cat']); ?>">
+                    <?php echo htmlspecialchars($categorie['nom_cat']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
-        <label for="image">URL de l'image :</label><br>
-        <input type="text" id="image" name="image" placeholder="images/nom-du-fichier.jpg" required><br><br>
+        <label for="image">Chemin de l'image :</label>
+        <input type="text" id="image" name="image" placeholder="images/nom-du-fichier.png" required>
 
         <button type="submit">Ajouter le produit</button>
     </form>
+</div>
 
-    <a href="index.php">Retour à l'accueil</a>
+<a class="retour" href="index.php">← Retour à l'accueil</a>
 
 <?php require 'includes/footer.php'; ?>

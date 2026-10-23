@@ -4,7 +4,6 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
+    // on n'affiche pas le détail de l'erreur à l'utilisateur
+    die("Erreur de connexion à la base de données.");
 }
-
-?>

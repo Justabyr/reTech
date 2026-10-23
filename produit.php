@@ -1,43 +1,56 @@
 <?php
 session_start();
-if (!isset($_GET['id'])) {
-    die("ID du produit manquant.");
-}
 
 require 'includes/connexion.php';
-$requete = $pdo->prepare("SELECT produit.*, categorie.nom_cat FROM produit JOIN categorie ON produit.id_cat = categorie.id_cat WHERE produit.id_prod = :id");
-$requete->execute(['id' => $_GET['id']]);
+
+$requete = $pdo->prepare("
+    SELECT produit.*, categorie.nom_cat
+    FROM produit
+    JOIN categorie ON produit.id_cat = categorie.id_cat
+    WHERE produit.id_prod = :id
+");
+$requete->execute(['id' => (int) ($_GET['id'] ?? 0)]);
 $produit = $requete->fetch();
+
 if (!$produit) {
-    die("Produit non trouvé.");
+    header('Location: index.php');
+    exit;
 }
+
+// type d'affichage : embed Sketchfab, fichier .glb, ou simple photo
+$modele = $produit['modele_3d'] ?? '';
+
+if ($modele !== '' && str_starts_with($modele, 'https://sketchfab')) {
+    $affichage = 'sketchfab';
+} elseif ($modele !== '') {
+    $affichage = 'glb';
+} else {
+    $affichage = 'photo';
+}
+
 $titre = $produit['nom_prod'];
 require 'includes/header.php';
 ?>
+
 <div class="fiche-produit">
 
     <div class="fiche-image">
-        <?php if (!empty($produit['modele_3d']) && str_starts_with($produit['modele_3d'], 'https://sketchfab')) { ?>
-            <!-- Cas 1 : modèle 3D hébergé sur Sketchfab -->
+        <?php if ($affichage === 'sketchfab') { ?>
             <iframe
-                src="<?php echo htmlspecialchars($produit['modele_3d']); ?>?autostart=1&transparent=1&ui_theme=dark&ui_color=8b5cf6&ui_infos=0&ui_stop=0"
+                src="<?php echo htmlspecialchars($modele); ?>?autostart=1&transparent=1&ui_theme=dark&ui_color=8b5cf6&ui_infos=0&ui_stop=0"
                 title="<?php echo htmlspecialchars($produit['nom_prod']); ?>"
                 allow="autoplay; fullscreen; xr-spatial-tracking"
                 allowfullscreen>
             </iframe>
-
-        <?php } elseif (!empty($produit['modele_3d'])) { ?>
-            <!-- Cas 2 : fichier .glb sur le site -->
+        <?php } elseif ($affichage === 'glb') { ?>
             <model-viewer
-                src="<?php echo htmlspecialchars($produit['modele_3d']); ?>"
+                src="<?php echo htmlspecialchars($modele); ?>"
                 alt="<?php echo htmlspecialchars($produit['nom_prod']); ?>"
                 camera-controls
                 auto-rotate
                 shadow-intensity="1">
             </model-viewer>
-
         <?php } else { ?>
-            <!-- Cas 3 : pas de 3D, on affiche la photo -->
             <img src="<?php echo htmlspecialchars($produit['image']); ?>"
                  alt="<?php echo htmlspecialchars($produit['nom_prod']); ?>">
         <?php } ?>
@@ -67,13 +80,14 @@ require 'includes/header.php';
 
 </div>
 
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-<script type="module">
-    // Attendre que model-viewer soit chargé
-    customElements.whenDefined('model-viewer').then(function () {
-        // Qualité minimum = 100 % (au lieu de 50 % par défaut)
-        customElements.get('model-viewer').minimumRenderScale = 1;
-    });
-</script>
+<?php if ($affichage === 'glb') { ?>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script type="module">
+        // garde la qualité à 100 % quand on fait tourner le modèle
+        customElements.whenDefined('model-viewer').then(function () {
+            customElements.get('model-viewer').minimumRenderScale = 1;
+        });
+    </script>
+<?php } ?>
 
 <?php require 'includes/footer.php'; ?>

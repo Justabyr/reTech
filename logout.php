@@ -1,6 +1,9 @@
 <?php
 session_start();
-unset($_SESSION['utilisateur']);
-// Rediriger vers la page de connexion après la déconnexion
+
+// on vide et on détruit toute la session
+$_SESSION = [];
+session_destroy();
+
 header('Location: login.php');
 exit;

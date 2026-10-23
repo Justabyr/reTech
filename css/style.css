@@ -9,19 +9,55 @@
     --bordure_du_verre: rgba(255, 255, 255, 0.15);
 }
 
-main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-}
+/* Base */
 
-body{
+body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: var(--texte);
     background: linear-gradient(135deg, var(--fond_1), var(--fond_2));
     min-height: 100vh;
 }
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#fond-3d {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+a {
+    color: var(--violet);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--rose);
+}
+
+h1, h2 {
+    background: linear-gradient(90deg, var(--texte), var(--violet));
+    background-clip: text;
+    color: transparent;
+    width: fit-content;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+/* Navigation */
+
 nav {
     display: flex;
     flex-wrap: wrap;
@@ -37,15 +73,34 @@ nav {
 
 nav a {
     color: var(--texte);
-    text-decoration: none;
 }
 
 nav a:hover {
     color: var(--violet);
 }
+
 nav span {
     color: var(--texte_gris);
 }
+
+.logo {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    display: block;
+    transition: filter 0.2s;
+}
+
+.logo:hover img {
+    filter: brightness(1.2) drop-shadow(0 0 8px rgba(236, 72, 153, 0.6));
+}
+
+/* Boutons */
+
 button, .btn {
     background: linear-gradient(90deg, var(--violet), var(--rose));
     color: white;
@@ -55,7 +110,6 @@ button, .btn {
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: none;
     display: inline-block;
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -66,6 +120,139 @@ button:hover, .btn:hover {
     color: white;
 }
 
+/* Formulaires */
+
+label {
+    display: block;
+    margin: 15px 0 6px;
+    color: var(--texte_gris);
+}
+
+input, select, textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    background: var(--verre);
+    border: 1px solid var(--bordure_du_verre);
+    border-radius: 12px;
+    color: var(--texte);
+    font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--violet);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.carte-form {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 30px;
+    background: var(--verre);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--bordure_du_verre);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.carte-form h1 {
+    margin: 0 auto 20px;
+    text-align: center;
+}
+
+.carte-form button {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.carte-form p {
+    text-align: center;
+    color: var(--texte_gris);
+}
+
+.erreur {
+    padding: 12px;
+    border: 1px solid var(--rose);
+    border-radius: 12px;
+    background: rgba(236, 72, 153, 0.15);
+    color: var(--rose) !important; /* passe devant le gris de .carte-form p */
+}
+
+/* Accueil */
+
+.hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.15;
+    margin: 10px auto 20px;
+}
+
+.hero-sur-titre {
+    color: var(--rose);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hero-texte {
+    color: var(--texte_gris);
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.arguments {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.argument {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    background: var(--verre);
+    border: 1px solid var(--bordure_du_verre);
+    border-radius: 16px;
+    text-align: left;
+}
+
+.argument p {
+    margin: 0;
+    color: var(--texte_gris);
+    font-size: 14px;
+}
+
+.argument strong {
+    color: var(--texte);
+}
+
+.argument-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--violet), var(--rose));
+    font-weight: bold;
+}
+
+/* Catalogue */
+
+#catalogue {
+    margin-top: 40px;
+}
+
 .catalogue {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -73,32 +260,65 @@ button:hover, .btn:hover {
 }
 
 .produit {
+    display: block;
     padding: 20px;
+    color: var(--texte);
     background: var(--verre);
     backdrop-filter: blur(10px);
     border: 1px solid var(--bordure_du_verre);
     border-radius: 16px;
     transition: transform 0.1s, box-shadow 0.3s;
 }
+
+.produit:hover {
+    color: var(--texte);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+}
+
 .produit p {
     margin: 6px 0;
 }
 
-.produit:hover {
-    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+.produit .nom {
+    font-size: 18px;
+    font-weight: bold;
 }
+
+.produit .prix {
+    width: fit-content;
+}
+
+.carte-image {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.carte-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.produit:hover .carte-image img {
+    transform: scale(1.08);
+}
+
+/* produit en rupture : photo grisée */
+.epuise .carte-image img {
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+/* Infos produit (catalogue + fiche) */
 
 .categorie {
     font-size: 13px;
     color: var(--texte_gris);
     text-transform: uppercase;
-}
-
-.nom a {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--texte);
-    text-decoration: none;
 }
 
 .prix {
@@ -109,11 +329,83 @@ button:hover, .btn:hover {
     color: transparent;
 }
 
+.etat {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--violet);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--violet);
+}
+
+.stock {
+    color: #4ade80;
+    font-weight: bold;
+}
+
 .rupture {
     font-size: 14px;
     color: var(--rose);
     font-weight: bold;
 }
+
+/* Fiche produit */
+
+.fiche-produit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+    padding: 30px;
+    background: var(--verre);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--bordure_du_verre);
+    border-radius: 20px;
+}
+
+.fiche-image img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.fiche-image model-viewer {
+    width: 100%;
+    height: 420px;
+    --poster-color: transparent;
+}
+
+.fiche-image iframe {
+    width: 100%;
+    height: 420px;
+    border: none;
+    border-radius: 16px;
+}
+
+.fiche-infos h1 {
+    margin: 5px 0;
+}
+
+.fiche-infos .prix {
+    font-size: 32px;
+    display: block;
+    width: fit-content;
+}
+
+.description {
+    color: var(--texte_gris);
+    line-height: 1.6;
+}
+
+.retour {
+    display: inline-block;
+    margin-top: 25px;
+}
+
+/* Tableaux (panier, commandes, admin) */
 
 table {
     width: 100%;
@@ -147,189 +439,23 @@ td button {
     padding: 6px 14px;
 }
 
+.quantite {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .actions-panier {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 20px;
 }
-a {
-    color: var(--violet);
-    text-decoration: none;
-    transition: color 0.2s;
-}
 
-a:hover {
-    color: var(--rose);
-}
+/* Téléphone */
 
-input, select, textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 16px;
-    background: var(--verre);
-    border: 1px solid var(--bordure_du_verre);
-    border-radius: 12px;
-    color: var(--texte);
-    font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--violet);
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
-}
-
-label{
-    display: block;
-    margin: 15px 0 6px;
-    color: var(--texte_gris);
-}
-
-/* Carte en verre centrée pour les formulaires */
-.carte-form {
-    max-width: 420px;
-    margin: 60px auto;
-    padding: 30px;
-    background: var(--verre);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--bordure_du_verre);
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.carte-form h1 {
-    margin-top: 0;
-    text-align: center;
-}
-
-/* Le bouton prend toute la largeur de la carte */
-.carte-form button {
-    width: 100%;
-    margin-top: 25px;
-}
-
-.carte-form p {
-    text-align: center;
-    color: var(--texte_gris);
-}
-
-/* Message d'erreur en rose */
-.erreur {
-    padding: 12px;
-    border: 1px solid var(--rose);
-    border-radius: 12px;
-    background: rgba(236, 72, 153, 0.15);
-    color: var(--rose) !important;
-}
-
-/* Fiche produit : image à gauche, infos à droite */
-.fiche-produit {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-top: 40px;
-    padding: 30px;
-    background: var(--verre);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--bordure_du_verre);
-    border-radius: 20px;
-}
-
-.fiche-image img {
-    width: 100%;
-    max-height: 420px;
-    object-fit: contain;
-    border-radius: 16px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.fiche-infos h1 {
-    margin: 5px 0;
-}
-
-.etat {
-    display: inline-block;
-    padding: 4px 12px;
-    border: 1px solid var(--violet);
-    border-radius: 999px;
-    font-size: 13px;
-    color: var(--violet);
-}
-
-.fiche-infos .prix {
-    font-size: 32px;
-    display: block;
-    width: fit-content;
-}
-
-.description {
-    color: var(--texte_gris);
-    line-height: 1.6;
-}
-
-.stock {
-    color: #4ade80;
-    font-weight: bold;
-}
-
-.retour {
-    display: inline-block;
-    margin-top: 25px;
-}
-
-.fiche-image model-viewer {
-    width: 100%;
-    height: 420px;
-    --poster-color: transparent;
-}
-
-.fiche-image iframe {
-    width: 100%;
-    height: 420px;
-    border: none;
-    border-radius: 16px;
-}
-/* Logo ReTech dans la nav */
-.logo {
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-right: auto;
-    background: linear-gradient(90deg, var(--violet), var(--rose));
-    background-clip: text;
-    color: transparent;
-}
-
-.logo:hover {
-    color: transparent;
-    filter: brightness(1.3);
-}
-
-/* Titres en dégradé */
-h1, h2 {
-    background: linear-gradient(90deg, var(--texte), var(--violet));
-    background-clip: text;
-    color: transparent;
-    width: fit-content;
-}
-
-h1 {
-    font-size: 36px;
-}
-
-/* Le titre des formulaires reste centré */
-.carte-form h1 {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* ===== Responsive : téléphones (moins de 768 px) ===== */
 @media (max-width: 768px) {
 
-    /* Nav : logo sur sa propre ligne, liens en dessous */
     nav {
         gap: 12px;
         padding: 12px 15px;
@@ -339,12 +465,23 @@ h1 {
         width: 100%;
     }
 
-    /* Titres plus petits */
+    .logo img {
+        height: 32px;
+    }
+
     h1 {
         font-size: 26px;
     }
 
-    /* Fiche produit : image au-dessus des infos */
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    /* pas d'effet tilt sans souris */
+    .produit {
+        transform: none !important;
+    }
+
     .fiche-produit {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -356,13 +493,12 @@ h1 {
         height: 300px;
     }
 
-    /* Formulaires : moins de marge */
     .carte-form {
         margin: 30px auto;
         padding: 20px;
     }
 
-    /* Tableaux : défilement horizontal */
+    /* le tableau défile au lieu de déborder */
     table {
         display: block;
         overflow-x: auto;
@@ -370,11 +506,13 @@ h1 {
     }
 }
 
+/* Impression (facture) */
 
 @media print {
 
     .no-print,
-    nav {
+    nav,
+    #fond-3d {
         display: none;
     }
 
@@ -389,7 +527,11 @@ h1 {
         padding: 0;
     }
 
-    /*Enlever l'effet verre*/
+    h1, h2 {
+        background: none;
+        color: black;
+    }
+
     table {
         background: none;
         backdrop-filter: none;
@@ -404,18 +546,12 @@ h1 {
         color: black;
     }
 
-    /*En-tête du tableau en gris clair*/
     th {
         background: #e5e5e5;
     }
 
     tr:hover td {
         background: none;
-    }
-
-        h1, h2 {
-        background: none;
-        color: black;
     }
 }
 
